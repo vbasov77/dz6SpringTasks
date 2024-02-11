@@ -13,6 +13,15 @@ ID (автоинкрементное)
 Статус (одно из значений: "не начата", "в процессе", "завершена")
 Дата создания (автоматически устанавливается при создании задачи)
 
+-------------------------------------------------------------------------------
+решение:
+Для удобства добавления в БД установлен плагин flyway.
+Выполните migrate: 
+
+
+![alt text](https://sun9-22.userapi.com/impg/cUKbCjClOykF1royc1yPHew0Fi4vStowWzxmcg/ICTi0swYXqw.jpg?size=1280x685&quality=95&sign=a60b893faff2b83ed599487ff4caa76d&type=album)
+
+--------------------------------------------------------------------------------
 ![alt text](https://sun9-77.userapi.com/impg/CQKGA7Zj2HEcN5Glk5sy2oDkx10sKn9MkZ3YhA/hOxUQx4eGVU.jpg?size=1153x506&quality=95&sign=cd969f2df84eff0423e119c97280216f&type=album)
 
 
