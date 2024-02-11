@@ -1,0 +1,58 @@
+<div th:replace="~{layouts/header :: header(Front)}"/>
+<section>
+    <div class="container px-4 px-lg-5"
+         style="white-space: nowrap"> <!--Запрет переноса строк при уменьшении странцы браузера-->
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/get-status}" method="post">
+                    <label for="status">Поиск по статусу:</label><br>
+                    <select name="status" id="status">
+                        <option value="">-Выбрать статус-</option>
+                        <option value="в процессе">в процессе</option>
+                        <option value="не начата">не начата</option>
+                        <option value="завершена">завершена</option>
+                    </select><br>
+                    <br>
+                    <button type="submit" class="btn btn-outline-success small">Искать</button>
+                </form>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+
+            <div th:each="value : ${data}">
+                <div class="col">
+                    <div class="card" style="padding: 20px">
+                        <div class="card-title">
+                            id: <span th:text="${value.getId}"/>
+                        </div>
+
+                        <div class="card-body">
+                            <span th:text="${value.getDescription}"/>
+                        </div>
+                        <div class="card-footer">
+                            <a title="Смотреть объект" class="rem"
+                               th:href="@{/view/{id}(id = ${value.getId()})}">
+                                <img th:src="@{'/icons/eye.svg'}"
+                                     style="width: 17px; ">
+                            </a>
+
+                            <a title="Редактировать" class="rem"
+                               th:href="@{/edit-task/{id}(id = ${value.getId()})}">
+                                <img th:src="@{'/icons/edit.svg'}"
+                                     style="width: 17px; ">
+                            </a>
+
+                            <a th:href="@{delete/{id}(id = ${value.getId()})}"><img th:src="@{'/icons/delete.svg'}"
+                                                                                    style="width: 20px; "></a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div th:replace="~{layouts/footer :: footer(Front)}"/>

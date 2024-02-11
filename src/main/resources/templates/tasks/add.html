@@ -1,0 +1,33 @@
+<div th:replace="~{layouts/header :: header(Front)}"/>
+<section>
+  <div class="container px-4 px-lg-5"
+       style="white-space: nowrap">
+
+    <form th:action="@{/add-task}" method="post">
+      <br>
+      <div>
+        <label th:for="description"><b>Описание задачи:</b></label>
+        <input name="description" type="text"
+               class="form-control" id="description"
+               placeholder="Описание задачи..." autocomplete="off" required>
+      </div>
+      <br>
+
+      <label for="status">По статусу:</label><br>
+      <select name="status" id="status" >
+        <option value="">-Выбрать статус-</option>
+        <option value="в процессе">в процессе</option>
+        <option value="не начата">не начата</option>
+        <option value="завершена">завершена</option>
+      </select><br>
+      <br>
+      <button class="btn btn-outline-success" type="submit" id="submit">
+        Добавить
+      </button>
+    </form>
+
+  </div>
+</section>
+
+
+<div th:replace="~{layouts/footer :: footer(Front)}"/>

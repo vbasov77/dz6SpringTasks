@@ -1,0 +1,25 @@
+<div th:replace="~{layouts/header :: header(Front)}"/>
+<section>
+    <div class="container px-4 px-lg-5"
+         style="white-space: nowrap"> <!--Запрет переноса строк при уменьшении странцы браузера-->
+        <div class="row gx-4 gx-lg-5 justify-content-center" style="margin-top: 60px">
+            <div class="col">
+                id: <span th:text="${task.getId}"/>
+                <br>
+                <h2><span th:text="${task.getDescription}"/></h2>
+                <br>
+                <a th:href="@{/delete/{id}(id = ${task.getId()})}" type="button" class="btn btn-outline-danger small">Удалить</a>
+            </div>
+        </div>
+        <h3 style="margin-top: 60px">Исполнители:</h3><br>
+        <div class="row gx-4 gx-lg-5" >
+            <div th:each="value : ${performers}">
+                <div class="col">
+                    <span th:text="${value}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
