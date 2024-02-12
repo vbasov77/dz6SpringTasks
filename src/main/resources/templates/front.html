@@ -37,12 +37,12 @@
                             </a>
 
                             <a title="Редактировать" class="rem"
-                               th:href="@{/edit-task/{id}(id = ${value.getId()})}">
+                               th:href="@{/user/edit-task/{id}(id = ${value.getId()})}">
                                 <img th:src="@{'/icons/edit.svg'}"
                                      style="width: 17px; ">
                             </a>
 
-                            <a th:href="@{delete/{id}(id = ${value.getId()})}"><img th:src="@{'/icons/delete.svg'}"
+                            <a th:href="@{/user/delete/{id}(id = ${value.getId()})}"><img th:src="@{'/icons/delete.svg'}"
                                                                                     style="width: 20px; "></a>
                         </div>
                     </div>
