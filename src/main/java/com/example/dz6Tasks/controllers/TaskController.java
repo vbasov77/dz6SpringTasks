@@ -6,6 +6,7 @@ import com.example.dz6Tasks.services.DoService;
 import com.example.dz6Tasks.services.PerformerService;
 import com.example.dz6Tasks.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,8 @@ public class TaskController {
         return "front";
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "/user/delete/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable("id") Long id) {
         taskService.delete(id);
         return "redirect:/";
@@ -49,12 +51,12 @@ public class TaskController {
         return "/tasks/view";
     }
 
-    @GetMapping(value = "/add-task")
+    @GetMapping(value = "/user/add-task")
     public String viewAddPage() {
         return "/tasks/add";
     }
 
-    @PostMapping("/add-task")
+    @PostMapping("/user/add-task")
     public String add(@RequestParam("description") String description, @RequestParam("status") String status) {
         Task task = new Task();
         task.setDescription(description);
@@ -64,14 +66,14 @@ public class TaskController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/edit-task/{id}")
+    @GetMapping(value = "/user/edit-task/{id}")
     public String viewEditPage(@PathVariable Long id, Model model) {
         Task taskById = taskService.findTaskById(id);
         model.addAttribute("task", taskById);
         return "/tasks/edit";
     }
 
-    @PostMapping(value = "/edit-task")
+    @PostMapping(value = "/user/edit-task")
     public String edit(@RequestParam("description") String description,
                        @RequestParam("status") String status,
                        @RequestParam("id") Long id
