@@ -18,6 +18,16 @@ ID (автоинкрементное)
 Для удобства добавления в БД установлен плагин flyway.
 Выполните migrate: 
 
+Совместил ДЗ5 и ДЗ6.
+Добавлено:
+spring security
+новая таблица в БД users
+свои страницы с логином и регистрацией
+добавить task и редактировать может только зарегистрированный пользователь, удалить сможет только юзер с ролей ROLE_ADMIN
+
+Также, перед тестированием нужно запустить плагин flyway на миграцию в db.
+1 логин user пароль 100
+2 логин admin пароль 100
 
 ![alt text](https://sun9-22.userapi.com/impg/cUKbCjClOykF1royc1yPHew0Fi4vStowWzxmcg/ICTi0swYXqw.jpg?size=1280x685&quality=95&sign=a60b893faff2b83ed599487ff4caa76d&type=album)
 
