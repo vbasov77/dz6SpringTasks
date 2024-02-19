@@ -1,6 +1,7 @@
 package com.example.dz6Tasks.services;
 
 
+import com.example.dz6Tasks.annotations.LogNotFound;
 import com.example.dz6Tasks.models.Task;
 import com.example.dz6Tasks.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,13 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task findTaskById(Long id) {
-        return taskRepository.findTaskById(id);
+    @LogNotFound
+    public Task findTaskById(Long id) throws Exception {
+        Task taskById = taskRepository.findTaskById(id);
+        if (taskById == null) {
+            throw new Exception("Обращение к несуществующему id");
+        }
+        return taskById;
     }
 
     public List<Task> findAllByStatus(String status) {

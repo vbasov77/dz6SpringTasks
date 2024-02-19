@@ -1,6 +1,7 @@
 package com.example.dz6Tasks.controllers;
 
-
+import com.example.dz6Tasks.annotations.LogNotFound;
+import com.example.dz6Tasks.annotations.TrackUserAction;
 import com.example.dz6Tasks.models.Task;
 import com.example.dz6Tasks.services.DoService;
 import com.example.dz6Tasks.services.PerformerService;
@@ -30,7 +31,6 @@ public class TaskController {
     @GetMapping(value = "/")
     public String front(Model model) {
         List<Task> all = taskService.findAll();
-        System.out.println(all);
         model.addAttribute("data", all);
         return "front";
     }
@@ -43,12 +43,19 @@ public class TaskController {
     }
 
     @GetMapping(value = "/view/{id}")
+    @LogNotFound
     public String view(Model model, @PathVariable("id") Long id) {
-        Task task = taskService.findTaskById(id);
-        List<String> performers = doService.findPerformersByDoId(id);
-        model.addAttribute("task", task);
-        model.addAttribute("performers", performers);
+        try {
+            Task task = taskService.findTaskById(id);
+            List<String> performers = doService.findPerformersByDoId(id);
+            model.addAttribute("task", task);
+            model.addAttribute("performers", performers);
+
+        } catch (Exception e) {
+            return "tasks/errors/error";
+        }
         return "/tasks/view";
+
     }
 
     @GetMapping(value = "/user/add-task")
@@ -62,14 +69,19 @@ public class TaskController {
         task.setDescription(description);
         task.setStatus(status);
         taskService.create(task);
-
         return "redirect:/";
     }
 
+    @TrackUserAction
     @GetMapping(value = "/user/edit-task/{id}")
-    public String viewEditPage(@PathVariable Long id, Model model) {
-        Task taskById = taskService.findTaskById(id);
-        model.addAttribute("task", taskById);
+    public String viewEditPage(@PathVariable Long id, Model model) throws Exception {
+
+        try {
+            Task taskById = taskService.findTaskById(id);
+            model.addAttribute("task", taskById);
+        } catch (Exception e) {
+            return "tasks/errors/error";
+        }
         return "/tasks/edit";
     }
 
