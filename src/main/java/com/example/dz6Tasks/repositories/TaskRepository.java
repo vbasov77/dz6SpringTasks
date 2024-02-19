@@ -1,5 +1,7 @@
 package com.example.dz6Tasks.repositories;
 
+import com.example.dz6Tasks.annotations.LogNotFound;
+import com.example.dz6Tasks.annotations.LoggedExecution;
 import com.example.dz6Tasks.models.Task;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,5 +30,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Modifying
     @Query(value = "update tasks set description = :description, status = :status where id = :id", nativeQuery = true)
     void updateTask(String description, String status, Long id);
+
+    @LogNotFound
     Task findTaskById(Long id);
 }
