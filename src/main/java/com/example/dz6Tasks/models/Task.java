@@ -26,6 +26,9 @@ public class Task {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "urgency")
+    private Integer urgency;
+
     @Column(name = "created_at")
     private String created_at;
 

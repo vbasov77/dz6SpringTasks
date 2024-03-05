@@ -2,6 +2,7 @@ package com.example.dz6Tasks.controllers;
 
 import com.example.dz6Tasks.annotations.LogNotFound;
 import com.example.dz6Tasks.annotations.TrackUserAction;
+import com.example.dz6Tasks.facktory.*;
 import com.example.dz6Tasks.models.Task;
 import com.example.dz6Tasks.services.DoService;
 import com.example.dz6Tasks.services.PerformerService;
@@ -28,6 +29,9 @@ public class TaskController {
     @Autowired
     private DoService doService;
 
+    @Autowired
+    private FactoryService factoryService;
+
     @GetMapping(value = "/")
     public String front(Model model) {
         List<Task> all = taskService.findAll();
@@ -38,7 +42,12 @@ public class TaskController {
     @GetMapping(value = "/user/delete/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public String delete(@PathVariable("id") Long id) {
-        taskService.delete(id);
+        try {
+            taskService.delete(id);
+        } catch (Exception e) {
+            return "tasks/errors/error";
+        }
+
         return "redirect:/";
     }
 
@@ -64,11 +73,12 @@ public class TaskController {
     }
 
     @PostMapping("/user/add-task")
-    public String add(@RequestParam("description") String description, @RequestParam("status") String status) {
-        Task task = new Task();
-        task.setDescription(description);
-        task.setStatus(status);
-        taskService.create(task);
+    public String add(@RequestParam("description") String description,
+                      @RequestParam("status") String status,
+                      @RequestParam("urgency") String urgency
+    ) {
+
+        factoryService.addFactoryTask(description, status, urgency);
         return "redirect:/";
     }
 

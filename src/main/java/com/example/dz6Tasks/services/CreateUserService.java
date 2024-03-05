@@ -21,7 +21,4 @@ public class CreateUserService {
         user.setRoles("ROLE_USER");
         save(user);
     }
-    public User getUserById(Long id){
-        return userRepository.findUserById(id);
-    }
 }

@@ -2,26 +2,23 @@ package com.example.dz6Tasks.services;
 
 
 import com.example.dz6Tasks.annotations.LogNotFound;
+import com.example.dz6Tasks.facktory.*;
 import com.example.dz6Tasks.models.Task;
 import com.example.dz6Tasks.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
+    private final TaskRepository taskRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     public List<Task> findAll() {
         return taskRepository.findAll();
-    }
-
-    public void delete(Long id) {
-        taskRepository.deleteById(id);
     }
 
     @LogNotFound
@@ -38,10 +35,20 @@ public class TaskService {
     }
 
     public void create(Task task) {
+        save(task);
+    }
+
+    public void save(Task task) {
         taskRepository.save(task);
     }
 
     public void updateTask(String description, String status, Long id) {
         taskRepository.updateTask(description, status, id);
+    }
+
+
+
+    public void delete(Long id) {
+        taskRepository.deleteTaskById(id);
     }
 }
